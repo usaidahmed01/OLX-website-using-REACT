@@ -1,16 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/header';
+import Footer from './components/footer'
 import Router from './config/router';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>HEADER</div>
+        {/* <><Header /></> */}
 
         <div><Router /></div>
 
-        <div>FOOTER</div>
+        {/* <div><Footer /></div> */}
 
       </header>
     </div>

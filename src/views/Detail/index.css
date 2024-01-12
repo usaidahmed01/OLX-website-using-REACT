@@ -1,0 +1,26 @@
+.loading-img{
+    margin: auto;
+    width: 50%;
+}
+.detail{
+    margin: auto;
+    width: 70%;
+
+}
+.img-div{
+    
+    width: 50%;
+
+
+    border-radius: 1px;
+}
+.price-div{
+    color: #002F34;
+
+    width: 50%;
+    border: 1px solid #CCD5D6;
+    border-radius: 2px;
+    padding: 10px;
+
+
+}

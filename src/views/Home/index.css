@@ -1,0 +1,27 @@
+.loading-img{
+    margin: auto;
+    width: 50%;
+}
+.allcat{
+    display: flex;
+    justify-content: space-evenly;
+    width: 60%;
+    margin: auto;
+}
+.imges{
+    width: 5rem;
+}
+.api-cards{
+    width: 24%;
+    padding: 20px;
+}
+.api-cards-main {
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+    padding: 0 100px;
+}
+
+.api-cards-main .api-cards-main {
+    width: 33.33%;
+}

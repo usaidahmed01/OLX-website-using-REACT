@@ -1,0 +1,116 @@
+.main-div{
+    width: 100%; 
+    background-color: #F7F8F8;
+}
+.div2{
+    width: 70%;
+    margin: auto;
+
+}
+.nav-1{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+.olx-logo-1{
+    width: 50px;
+    margin-right: 20px;
+}
+.nav-1-lis{
+    font-size: small;
+    margin-left: 10px;
+}
+.nav-1-car-builing{
+    width: 1rem;
+}
+.nav-1-lis:hover{
+    cursor: pointer;
+    color: #3A77FF;
+
+}
+
+.nav-2{
+    width: fit-content;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    /* justify-content: space-evenly; */
+}
+.olx-logo-2{
+    width: 5rem;
+}
+.loc-bar{
+    background-image: url('../../Assets/search.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 20px;
+    margin-left: 20px;
+    width: 15vw;
+    padding: 10px;
+    padding-left: 40px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.search-bar{
+    margin-left: 20px;
+
+    background-image: url('../../Assets/search.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 20px;
+
+    width: 30vw;
+    padding: 10px;
+
+    border: 2px solid black;
+    border-radius: 5px;
+    
+}
+.search-bar::placeholder{
+    font-size: medium;
+}
+.login-btn{
+    margin-left: 30px;
+
+    background-color: white;
+    color: #002F34;
+    font-size: medium;
+    font-weight: bold;
+    border-bottom: 2px solid #002F34 ;
+    border-top: 0px ;
+    border-right: 0px ;
+    border-left: 0px ;
+
+}
+.login-btn:hover{
+    border-bottom: 0px;
+
+}
+.sell-btn{
+    width: 100px;
+    margin-left: 30px;
+    color: #002F34;
+    font-size: medium;
+    font-weight: bold;
+    padding: 8px;
+    border-left: 5px solid #FFCE32;
+    border-right: 5px solid #3A77FF;
+    border-top: 5px solid #23E5DB;
+    border-bottom: 5px solid #FFCE32;
+border-radius: 30px;
+
+
+}
+.nav-3-li1{
+    font-weight: bold;
+}
+.nav-3-lis{
+    font-size: medium;
+    margin-left: 15px ;
+}
+.nav-3-lis:hover{
+    cursor: pointer;
+    color: #4AA4AE;
+}
+
+
