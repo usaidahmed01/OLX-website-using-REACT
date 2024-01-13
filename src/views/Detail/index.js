@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import loading from '../../Assets/loading.gif'
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+import profile from '../../Assets/profile.jpg'
 
 function Detail(props) {
     const [singleProduct, setSingleProduct] = useState([])
@@ -36,18 +37,20 @@ function Detail(props) {
                 <br />
                 <div className='detail'>
 
+                    <div className='img-profile-div'>
 
-                    <div className='img-div'>
-                        <img width='100%' src={images[0]}/>
+                        <div className='img-div'>
+                            <img className='api-img' src={images[0]} />
 
+                        </div>
+                        <div className='profile-div'>
+                            <span className='img-span'><img className='profile-img' src={profile} /> Usaid Ahmed</span>
+                            <div className='phone-btn'>Show Phone Number</div>
+                            <div className='chat-btn'>Chat</div>
 
-                        {/* {images.map((item) => {
-                            return <img src={item} />
-
-                        })} */}
+                        </div>
 
                     </div>
-
 
                     <br />
                     <div className='price-div'>

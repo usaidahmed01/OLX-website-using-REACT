@@ -2,17 +2,40 @@
     margin: auto;
     width: 50%;
 }
+
 .detail{
     margin: auto;
     width: 70%;
+
+}
+.img-profile-div{
+    display: flex;
 
 }
 .img-div{
     
     width: 50%;
 
+    border-radius: 2px;
 
-    border-radius: 1px;
+}
+.api-img{
+    width: 100%;
+    border-radius: 2px;
+    
+}
+.profile-div{
+    margin-left: 20px;
+    border: 1px solid  #CCD5D6;
+    width: 30%;
+    height: 300px;
+    border-radius: 2px;
+
+}
+.profile-img{
+    width: 80px;
+    border-radius: 60px;
+    margin-right: 5px;
 }
 .price-div{
     color: #002F34;
@@ -23,4 +46,40 @@
     padding: 10px;
 
 
+}
+.img-span{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #002F34;
+}
+.phone-btn{
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #002F34;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+
+}
+.chat-btn{
+    color: #002F34;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 2px solid #002F34;
+
+}
+.chat-btn:hover{
+    border: 3px solid #002F34;
 }
