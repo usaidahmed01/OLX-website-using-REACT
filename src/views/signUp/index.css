@@ -1,0 +1,49 @@
+.flex{
+    width: 30%;
+    margin: 0 auto;
+    background-color: white;
+    font-size: calc(10px + 2vmin);
+    
+}
+
+
+.mainDiv {
+    border-radius: 5px;
+   text-align: center;
+   margin-top: 200px;
+   line-height: 60px;
+    
+    /* min-height: 100vh; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center;  */
+    /* justify-content: center; */
+
+
+    color: #002F34;
+    /* filter: drop-shadow(5px 5px 10px black); */
+    box-shadow: 5px 5px 10px black;
+    height: 100%;
+}
+
+
+
+.log-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #002F34;
+    color: white;
+    font-weight: bold;
+    padding: 8px 15px 8px 15px;
+    font-size: medium;
+    font-family: 'Poppins', sans-serif;
+    height: 50px;
+}
+
+.log-btn:hover {
+    background-color: white;
+    color: #002F34;
+    border: 2px groove #002F34;
+}

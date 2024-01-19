@@ -1,0 +1,64 @@
+.main{
+    color: #002F34;
+}
+.nav-bar{
+    width: 100%;
+    background-color: #F7F8F8;
+}
+.nav-img{
+    display: flex;
+    flex-direction: row;
+    width: 4rem;
+}
+h3{
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+.log-btn {
+    /* margin-top: 20px; */
+    /* margin-bottom: 20px; */
+    border: none;
+    border-radius: 10px;
+    background-color: #002F34;
+    color: white;
+    font-weight: bold;
+    padding: 8px 15px 8px 15px;
+    font-size: medium;
+    font-family: 'Poppins', sans-serif;
+    height: 50px;
+}
+
+.log-btn:hover {
+    background-color: white;
+    color: #002F34;
+    border: 2px groove #002F34;
+}
+.div1{
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 80%;
+    margin: 0 auto;
+}
+.input {
+    border-radius: 5px;
+    width: 90%;
+    padding: 20px;
+    margin-top: 30px;
+}
+.input::placeholder{
+    font-family: 'Poppins' , sans-serif ;
+    font-size: medium;
+}
+.div2{
+    width: 95%;
+    margin: 0 auto;
+    text-align: left;
+}
+.post-heading{
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+

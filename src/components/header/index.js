@@ -3,10 +3,12 @@ import logo2 from '../../Assets/logo-2.png'
 import './index.css'
 import car from '../../Assets/car-front.png'
 import building from '../../Assets/building-2.png'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Header() {
+    const navigate = useNavigate()
 
     return <div className='main-div'>
         <div className='div2'>
@@ -18,7 +20,7 @@ function Header() {
 
             </ul>
             <ul className='nav-2'>
-                <li><img className='olx-logo-2' src={logo2} /></li>
+                <li><img className='olx-logo-2' src={logo} onClick={() => navigate('/home')}/></li>
                 <li><select className='loc-bar'>
                     <option selected >Pakistan</option>
                     <option>India</option>
@@ -26,8 +28,8 @@ function Header() {
 
                 </select></li>
                 <li><input className='search-bar' placeholder='Find Cars, Mobile Phones and more...' type='search' /></li>
-                <li><button className='login-btn'>Login</button></li>
-                <li><button className='sell-btn'>SELL</button></li>
+                <li><button className='login-btn' onClick={ () => navigate('/')}>Login</button></li>
+                <li><button className='sell-btn' onClick={ () => navigate('/adpage')}>SELL</button></li>
 
 
             </ul>
