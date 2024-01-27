@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth , createUserWithEmailAndPassword ,  signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore ,  collection , addDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdZX1I9DX2mTux9GIETwQtbExmQFzxd0Q",
@@ -13,103 +15,174 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 
 async function signup(userInfo) {
-  const { email , password , fullName , age } = userInfo;
-  try{
-   await createUserWithEmailAndPassword(auth, email, password)
-   const docRef = await addDoc(collection(db, "users"), {
-    fullName,
-    age,
-    email,
-  });
-   
-   alert('Registered Successfully')
+  const { email, password, fullName, age } = userInfo;
+  try {
+    await createUserWithEmailAndPassword(auth, email, password)
+    const docRef = await addDoc(collection(db, "users"), {
+      fullName,
+      age,
+      email,
+    });
 
-   
-   
-   return true;
-  }
-  catch(e){
-    alert(e.message)
-    throw e;
-    
-  }
+    alert('Registered Successfully')
 
-  // .then((userCredential) => {
-    // const user = userCredential.user;
 
-    
-  // })
-
-  // .catch((error) => {
-    // const errorCode = error.code;
-    // const errorMessage = error.message;
-
-  // });
-  
-  
-}
-
-async function login(userInfo) {
-  
-  try{
-    const { email , password } = userInfo ;
-     await signInWithEmailAndPassword(auth, email, password)
-    
-    alert('Loggedin Successfully ')
 
     return true;
   }
-
-  catch (e){
+  catch (e) {
     alert(e.message)
     throw e;
+
   }
 
   // .then((userCredential) => {
-    // const user = userCredential.user;
+  // const user = userCredential.user;
+
+
   // })
+
   // .catch((error) => {
-    // const errorCode = error.code;
-    // const errorMessage = error.message;
-    // alert(errorMessage)
+  // const errorCode = error.code;
+  // const errorMessage = error.message;
+
   // });
 
-  
+
 }
 
-async function userAd(userInfo) {
+async function login(userInfo) {
 
-  try{
-    const { title , brand , price } = userInfo ;
-     await addDoc(collection(db, "adDetails"), {
-      title ,
-      brand ,
-      price ,
+  const { email, password } = userInfo;
+  await signInWithEmailAndPassword(auth, email, password)
 
-  });
-   
-   alert('AD Posted!')
+ 
 
-   return true;
 
-   
+}
+async function logout() {
+  await signOut(auth)
+
+
+}
+
+async function userAd(ad) {
+
+  const { title, brand, price, images, description } = ad;
+
+  try {
+
+    const storageRef = ref(storage, `adDetails/${images.name}`);
+
+    await uploadBytes(storageRef, images);
+    const imgURL = await getDownloadURL(storageRef);
+
+    await addDoc(collection(db, "adDetails"), {
+      title,
+      brand,
+      price,
+      description,
+      imageURL: imgURL,
+
+    });
+
+    alert('AD Posted!')
+
+    return true;
+
+
 
   }
-  catch(e){
+  catch (e) {
     alert(e.message)
     throw e;
   }
-  
+
+}
+
+async function getADs() {
+  const querySnapshot = await getDocs(collection(db, "adDetails"));
+  const adsData = []
+  querySnapshot.forEach((doc) => {
+
+    const ad = doc.data()
+    ad.id = doc.id
+
+    adsData.push(ad)
+  });
+  return adsData
+
+
+}
+
+
+
+async function uploadpfp(pfpimage) {
+  const { pfpImg } = pfpimage
+
+  try {
+
+    const storageRef = ref(storage, `profilepictures/${pfpImg.name}`);
+    await uploadBytes(storageRef, pfpImg)
+    const pfpURl = await getDownloadURL(storageRef)
+
+    const docRef = await addDoc(collection(db, "userpfps"), {
+      pfpURl,
+
+    });
+  } catch (e) {
+    alert(e.message)
+  }
+
+
+}
+
+async function getpfps() {
+
+  const querySnapshot = await getDocs(collection(db, "userpfps"));
+  const pfpIMG = []
+  querySnapshot.forEach((doc) => {
+
+
+    pfpIMG.push(doc.data())
+  });
+  return pfpIMG
+
+
+}
+async function getSingleProduct(detailID) {
+
+  const docRef = doc(db, "adDetails", detailID);
+  const docSnap = await getDoc(docRef);
+  const productData = docSnap.data()
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    console.log("No such document!");
+  }
+  return productData
+
+
+
+
+
 }
 
 
 export {
-  login , 
-  signup ,
-  userAd ,
+  login,
+  signup,
+  userAd,
+  getADs,
+  logout,
+  uploadpfp,
+  getpfps,
+  getSingleProduct
 }

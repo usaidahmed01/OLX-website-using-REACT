@@ -2,6 +2,7 @@ import './index.css'
 import Card from '../../components/card'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getADs } from '../../config/firebase'
 import loading from '../../Assets/loading.gif'
 import banner1 from '../../Assets/banner-1.png'
 import img1 from '../../Assets/image-1.png'
@@ -34,23 +35,27 @@ function Home(props) {
 
     }, [])
 
-    const getProductsfromAPI = () => {
-        fetch('https://dummyjson.com/products')
-            .then(res => res.json())
-            .then(res => setProducts(res.products));
+    const getProductsfromAPI = async () => {
+
+        const ads = await getADs()
+        setProducts(ads)
+        
+        // fetch('https://dummyjson.com/products')
+        //     .then(res => res.json())
+        //     .then(res => setProducts(res.products));
     }
+    // console.log('adsdata', products);
     if (!products.length) {
         return <div className='loading-img'><img src={loading} /></div>
-
+        
     }
 
 
 
     return <>
-        <><Header /></>
 
 
-    <br/>
+        <br />
         <div className='allcat'>
             <p>
                 <img className='imges' src={img1} />
@@ -62,83 +67,83 @@ function Home(props) {
             <p>
 
                 <img className='imges' src={img2} />
-                <br/>
+                <br />
                 vehicles
             </p>
             <p>
 
                 <img className='imges' src={img3} />
-                <br/>
-                Property For <br/> Sale
+                <br />
+                Property For <br /> Sale
             </p>
             <p>
 
                 <img className='imges' src={img4} />
-                <br/>
-                Property For <br/> Rent
+                <br />
+                Property For <br /> Rent
             </p>
             <p>
 
                 <img className='imges' src={img5} />
-                <br/>
-                Electronics & <br/> 
-                Home <br/> Appliances
+                <br />
+                Electronics & <br />
+                Home <br /> Appliances
             </p>
             <p>
 
                 <img className='imges' src={img6} />
-                <br/>
+                <br />
                 Bikes
             </p>
             <p>
 
                 <img className='imges' src={img7} />
-                <br/>
-                Business <br/> Industrial & <br/> Agriculture
+                <br />
+                Business <br /> Industrial & <br /> Agriculture
             </p>
             <p>
 
                 <img className='imges' src={img8} />
-                <br/>
+                <br />
                 Services
             </p>
             <p>
 
                 <img className='imges' src={img9} />
-                <br/>
+                <br />
                 Jobs
             </p>
-           
-        </div>
-        <br/>
-        <div  className='allcat'>
 
-        <p>
+        </div>
+        <br />
+        <div className='allcat'>
+
+            <p>
                 <img className='imges' src={img10} />
-                <br/>
+                <br />
                 Animals
-                </p>
+            </p>
             <p>
                 <img className='imges' src={img11} />
-                <br/>
-                Furniture & <br/>
+                <br />
+                Furniture & <br />
                 Home decor
-                </p>
+            </p>
             <p>
                 <img className='imges' src={img12} />
-                <br/>
-                Fashion & <br/> Beauty
-                </p>
+                <br />
+                Fashion & <br /> Beauty
+            </p>
             <p>
                 <img className='imges' src={img13} />
-                <br/>
-                Books, Sports <br/> & Hobbies
-                </p>
+                <br />
+                Books, Sports <br /> & Hobbies
+            </p>
             <p>
                 <img className='imges' src={img14} />
-                <br/>
+                <br />
                 Kids
-                </p>
+            </p>
         </div>
 
 
@@ -151,9 +156,8 @@ function Home(props) {
 
         <div className='api-cards-main'>
             {products.map((item) => {
-                const { price, brand, description, id , images} = item
-                return <div   className='api-cards' onClick={() => navigate(`detail/${id}`)}>
-                    <Card brand={brand} price={price} description={description} id={id} images={images} />
+                return <div className='api-cards' onClick={()=> {navigate(`/detail/${item.id}`)}}>
+                    <Card item = {item}/>
                 </div>
 
             })}
@@ -161,13 +165,12 @@ function Home(props) {
 
 
         </div>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <>
             <img src={banner1} />
             <hr />
         </>
-        <div><Footer /></div>
 
 
 

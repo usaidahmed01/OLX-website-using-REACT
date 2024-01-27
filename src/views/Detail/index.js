@@ -5,20 +5,27 @@ import loading from '../../Assets/loading.gif'
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import profile from '../../Assets/profile.jpg'
+import { getSingleProduct } from '../../config/firebase';
 
 function Detail(props) {
     const [singleProduct, setSingleProduct] = useState([])
     const { adId } = useParams()
-    const { price, title, brand, description, images } = singleProduct
+    const { price, title, brand, description, imageURL } = singleProduct
 
     useEffect(() => {
+        getAProduct()
 
-        fetch(`https://dummyjson.com/products/${adId}`)
-            .then(res => res.json())
-            .then(res => setSingleProduct(res));
-        // .then(res => console.log(res))
+
+        // fetch(`https://dummyjson.com/products/${adId}`)
+        //     .then(res => res.json())
+        //     .then(res => setSingleProduct(res));
+        // // .then(res => console.log(res))
     }, [])
-
+    const getAProduct = async () =>{
+        const singleproduct = await getSingleProduct(adId)
+        setSingleProduct(singleproduct)
+    }
+console.log( 'single product' , singleProduct);
 
 
 
@@ -33,14 +40,13 @@ function Detail(props) {
 
             <>
 
-                <Header />
                 <br />
                 <div className='detail'>
 
                     <div className='img-profile-div'>
 
                         <div className='img-div'>
-                            <img className='api-img' src={images[0]} />
+                            <img className='api-img' src={imageURL} />
 
                         </div>
                         <div className='profile-div'>
@@ -71,7 +77,6 @@ function Detail(props) {
 
 
                 </div>
-                <div><Footer /></div>
             </>
         }
     </>

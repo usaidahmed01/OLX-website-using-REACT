@@ -14,7 +14,7 @@ function Login() {
             await login({ email, password });
             navigate('/home')
         } catch (error) {
-            console.log(error);
+            alert (error)
         }
 
 
