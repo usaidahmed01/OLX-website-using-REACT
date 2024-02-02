@@ -156,6 +156,7 @@ async function getpfps() {
 
 
 }
+
 async function getSingleProduct(detailID) {
 
   const docRef = doc(db, "adDetails", detailID);

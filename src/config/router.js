@@ -47,10 +47,10 @@ const router = createBrowserRouter([
             },
         ]
     },
-    {
-        path: "/header",
-        element: <div><Header /></div>,
-    },
+    // {
+    //     path: "/header",
+    //     element: <div><Header /></div>,
+    // },
 
 
 ]);

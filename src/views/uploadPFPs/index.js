@@ -6,12 +6,13 @@ import { uploadpfp } from '../../config/firebase'
 function ProfilePictures() {
     const navigate = useNavigate()
     const [pfpImg, setPfpImg] = useState()
+    const [fullName , setFullName] = useState()
 
 
     const pfpUpdated = async () => {
 
 
-        await uploadpfp({ pfpImg })
+        await uploadpfp({ pfpImg , fullName })
         navigate('/home')
 
     }
@@ -39,7 +40,7 @@ function ProfilePictures() {
                     <h3>include some details</h3>
                     <label>Name:</label>
                     <br />
-                    <input className='input' type='text' placeholder='Your Fullname' />
+                    <input className='input' type='text' placeholder='Your Fullname'  onChange={(e) => setFullName(e.target.value)} />
                     <br />
                     <br />
 

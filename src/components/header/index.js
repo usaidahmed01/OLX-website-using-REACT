@@ -15,7 +15,9 @@ import { getpfps } from '../../config/firebase'
 function Header() {
     const navigate = useNavigate()
     const [user, setUser] = useState()
-    const [pfpImg, setPfpImg] = useState()
+    const [pfpImg, setPfpImg] = useState({})
+    const [pfurl , setPfurl] = useState()
+    // const { pfpURl , id , fullName } = pfpImg
 
     useEffect(() => {
 
@@ -27,24 +29,25 @@ function Header() {
                 setUser(null)
             }
         });
-
+        
     }, [])
     useEffect(() => {
         getpicture()
-
+        
     }, [pfpImg])
-
+    
+    console.log(pfpImg);
 
     const getpicture = async () => {
         const pfpicture = await getpfps()
         setPfpImg(pfpicture)
-    }
 
+    }
 
     const signOut = async () => {
         await logout()
         setUser(null)
-        setPfpImg(null)
+        setPfpImg()
 
 
 
@@ -72,14 +75,16 @@ function Header() {
                 <li><input className='search-bar' placeholder='Find Cars, Mobile Phones and more...' type='search' /></li>
                 <li>{user ? <p>
                     <span className='email'>{user.email}</span>
-                    {pfpImg ? <span><img className='profile-img' src={pfpImg[0].pfpURl} /></span>
-                        : <span class="upload-btn-wrapper">
+                    {!pfpImg.length  ?<span class="upload-btn-wrapper">
                             <button class="upload-img-btn" onClick={() => navigate('/editProfile')} >Upload Profile</button> 
                           
                         </span>
+                        :
+                        <span><img className='profile-img' src={pfpImg[0].pfpURl} /></span>
 
 
                     }
+
                     <button className='login-btn' onClick={signOut}>Logout</button>
                 </p>
                     : <button className='login-btn' onClick={() => navigate('/')}>Login</button>}</li>
