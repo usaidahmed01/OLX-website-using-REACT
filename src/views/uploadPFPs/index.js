@@ -14,6 +14,7 @@ function ProfilePictures() {
 
         await uploadpfp({ pfpImg , fullName })
         navigate('/home')
+        
 
     }
 

@@ -15,6 +15,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../config/firebase'
 import { useEffect , useState } from "react";
 import ProfilePictures from "../views/uploadPFPs";
+import CartPage from "../components/cartPage";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: "/editProfile",
                 element: <div><ProfilePictures /></div>,
+            },
+            {
+                path: "/addtocart",
+                element: <div><CartPage /></div>,
             },
         ]
     },

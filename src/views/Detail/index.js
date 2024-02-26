@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
 import './index.css'
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import loading from '../../Assets/loading.gif'
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import profile from '../../Assets/profile.jpg'
+
 import { getSingleProduct } from '../../config/firebase';
+import { useDispatch , useSelector } from 'react-redux';
+import { addToCart , removeFromCart } from '../../store/adcart';
+import CartPage from '../../components/cartPage';
 
 function Detail(props) {
     const [singleProduct, setSingleProduct] = useState([])
     const { adId } = useParams()
+    const dispatch = useDispatch()
+    const [ productID , setProductID] = useState()
+    
     const { price, title, brand, description, imageURL } = singleProduct
+
 
     useEffect(() => {
         getAProduct()
@@ -25,8 +33,7 @@ function Detail(props) {
         const singleproduct = await getSingleProduct(adId)
         setSingleProduct(singleproduct)
     }
-console.log( 'single product' , singleProduct);
-
+// console.log( 'single product' , singleProduct);
 
 
 
@@ -51,8 +58,8 @@ console.log( 'single product' , singleProduct);
                         </div>
                         <div className='profile-div'>
                             <span className='img-span'><img className='profile-img' src={profile} /> Usaid Ahmed</span>
-                            <div className='phone-btn'>Show Phone Number</div>
-                            <div className='chat-btn'>Chat</div>
+                            <div className='chat-btn'onClick={() => dispatch(addToCart(singleProduct))}>Add To Cart</div>
+                            <div className="cart-page"><CartPage api = {singleProduct} /></div>
 
                         </div>
 

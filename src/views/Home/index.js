@@ -45,6 +45,8 @@ function Home(props) {
         //     .then(res => setProducts(res.products));
     }
     // console.log('adsdata', products);
+
+
     if (!products.length) {
         return <div className='loading-img'><img src={loading} /></div>
         
@@ -57,6 +59,7 @@ function Home(props) {
 
         <br />
         <div className='allcat'>
+            
             <p>
                 <img className='imges' src={img1} />
                 <br />

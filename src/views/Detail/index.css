@@ -59,18 +59,6 @@
     font-weight: bold;
     color: #002F34;
 }
-.phone-btn{
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    background-color: #002F34;
-    text-align: center;
-    margin: auto;
-    width: 80%;
-    padding: 10px;
-    margin-top: 20px;
-
-}
 .chat-btn{
     color: #002F34;
     font-weight: bold;
@@ -81,8 +69,18 @@
     padding: 10px;
     margin-top: 20px;
     border: 2px solid #002F34;
+    transition: 0.5s;
 
 }
 .chat-btn:hover{
-    border: 3px solid #002F34;
+    cursor: pointer;
+    /* border: 3px solid #002F34; */
+    background-color: #002F34;
+    color: white;
+
+    transform: scale3d(1.1);
+
+}
+.cart-page{
+    visibility: hidden;
 }

@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, logout } from '../../config/firebase'
 import { useEffect, useState } from 'react'
 import { getpfps } from '../../config/firebase'
+import cart from '../../Assets/shopping-cart.png'
 
 
 
@@ -15,9 +16,10 @@ import { getpfps } from '../../config/firebase'
 function Header() {
     const navigate = useNavigate()
     const [user, setUser] = useState()
-    const [pfpImg, setPfpImg] = useState({})
-    const [pfurl , setPfurl] = useState()
+    const [pfpImg, setPfpImg] = useState([])
+    const [tru, setTru] = useState(false)
     // const { pfpURl , id , fullName } = pfpImg
+
 
     useEffect(() => {
 
@@ -29,14 +31,14 @@ function Header() {
                 setUser(null)
             }
         });
-        
+
     }, [])
     useEffect(() => {
         getpicture()
-        
+
     }, [pfpImg])
-    
-    console.log(pfpImg);
+
+    console.log(pfpImg, "pictures");
 
     const getpicture = async () => {
         const pfpicture = await getpfps()
@@ -44,15 +46,18 @@ function Header() {
 
     }
 
+
     const signOut = async () => {
         await logout()
         setUser(null)
-        setPfpImg()
+        setPfpImg(null)
+        setTru(true)
 
 
 
         navigate('/home')
     }
+
 
 
     return <div className='main-div'>
@@ -75,21 +80,24 @@ function Header() {
                 <li><input className='search-bar' placeholder='Find Cars, Mobile Phones and more...' type='search' /></li>
                 <li>{user ? <p>
                     <span className='email'>{user.email}</span>
-                    {!pfpImg.length  ?<span class="upload-btn-wrapper">
-                            <button class="upload-img-btn" onClick={() => navigate('/editProfile')} >Upload Profile</button> 
-                          
-                        </span>
+                    {!pfpImg?.length ? <span class="upload-btn-wrapper">
+                        <button class="upload-img-btn" onClick={() => navigate('/editProfile')} >Upload Profile</button>
+
+                    </span>
                         :
-                        <span><img className='profile-img' src={pfpImg[0].pfpURl} /></span>
-
-
+                        <span ><img  onClick={() => navigate('/editProfile')} className='profile-img' src={pfpImg?.map(item => item.pfpURl)} /></span>
                     }
+                    
 
                     <button className='login-btn' onClick={signOut}>Logout</button>
                 </p>
                     : <button className='login-btn' onClick={() => navigate('/')}>Login</button>}</li>
+                <li> <span><img src={cart} className='cart' onClick={() => navigate('/addtocart')} /></span></li>
 
-                <li><button className='sell-btn' onClick={() => navigate('/adpage')}>SELL</button></li>
+
+                <li><button className='sell-btn' onClick={() => navigate('/adpage')}>SELL</button>
+
+                </li>
 
 
             </ul>

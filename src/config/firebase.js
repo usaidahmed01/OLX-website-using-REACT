@@ -115,6 +115,7 @@ async function getADs() {
     ad.id = doc.id
 
     adsData.push(ad)
+    // console.log(adsData , 'id');
   });
   return adsData
 
@@ -147,10 +148,18 @@ async function getpfps() {
 
   const querySnapshot = await getDocs(collection(db, "userpfps"));
   const pfpIMG = []
+  
+
   querySnapshot.forEach((doc) => {
 
 
-    pfpIMG.push(doc.data())
+    const pfp = doc.data()
+    pfp.id = doc.id
+
+    pfpIMG.push(pfp)
+
+
+    console.log(pfpIMG , 'iddd');
   });
   return pfpIMG
 

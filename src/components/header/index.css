@@ -154,8 +154,13 @@ border-radius: 30px;
   }
 
   .profile-img{
-    width: 10px;
+    width: 30px !important;
     margin-left: 5px;
   }
+  .cart{
+    margin-left: 10px;
+    width: 100%;
+  }
+
 
 
