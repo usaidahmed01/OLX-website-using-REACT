@@ -15,14 +15,11 @@ const CartSlice = createSlice({
       // console.log(data, 'data hai');
     },
     removeFromCart: (state, data) => {
-      const itemIndex = state.cart.map( (item , index) => {
-        return 0 ;
-      } )
-      state.cart.splice( itemIndex , 1 )
+      const itemIndex = state.cart.findIndex((item) => item.id === data.payload);
 
-    // if (itemIndex !== -1) {
-    //     state.cart.splice(itemIndex, 1);
-    // }
+      if (itemIndex !== -1) {
+        state.cart.splice(itemIndex, 1);
+      }
     }
   }
   

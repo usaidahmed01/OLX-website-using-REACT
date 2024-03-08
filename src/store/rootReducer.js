@@ -3,7 +3,7 @@ import CartSlice from "./adcart";
 
 const rootReducer = combineReducers ( {
 
-    cartReducer : CartSlice.reducer
+    cart : CartSlice.reducer
     
 
 

@@ -159,7 +159,6 @@ async function getpfps() {
     pfpIMG.push(pfp)
 
 
-    console.log(pfpIMG , 'iddd');
   });
   return pfpIMG
 

@@ -38,7 +38,7 @@ function Header() {
 
     }, [pfpImg])
 
-    console.log(pfpImg, "pictures");
+    // console.log(pfpImg, "pictures");
 
     const getpicture = async () => {
         const pfpicture = await getpfps()
@@ -57,7 +57,7 @@ function Header() {
 
         navigate('/home')
     }
-
+console.log(pfpImg , 'img');
 
 
     return <div className='main-div'>
@@ -80,14 +80,16 @@ function Header() {
                 <li><input className='search-bar' placeholder='Find Cars, Mobile Phones and more...' type='search' /></li>
                 <li>{user ? <p>
                     <span className='email'>{user.email}</span>
-                    {!pfpImg?.length ? <span class="upload-btn-wrapper">
+                    {!pfpImg.length ?  <span class="upload-btn-wrapper">
                         <button class="upload-img-btn" onClick={() => navigate('/editProfile')} >Upload Profile</button>
 
                     </span>
                         :
-                        <span ><img  onClick={() => navigate('/editProfile')} className='profile-img' src={pfpImg?.map(item => item.pfpURl)} /></span>
-                    }
-                    
+                        <span >
+                            <img onClick={() => navigate('/editProfile')} className='profile-img' src={pfpImg?.map( item => item.pfpURl)} alt = 'img-not-found' />
+                        </span>}
+
+
 
                     <button className='login-btn' onClick={signOut}>Logout</button>
                 </p>
