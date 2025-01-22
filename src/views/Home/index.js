@@ -19,8 +19,7 @@ import img11 from '../../Assets/img-11.png'
 import img12 from '../../Assets/img-12.png'
 import img13 from '../../Assets/img-13.png'
 import img14 from '../../Assets/img-14.png'
-import Header from '../../components/header';
-import Footer from '../../components/footer';
+import { helix } from 'ldrs'
 
 
 
@@ -39,7 +38,7 @@ function Home(props) {
 
         const ads = await getADs()
         setProducts(ads)
-        
+
         // fetch('https://dummyjson.com/products')
         //     .then(res => res.json())
         //     .then(res => setProducts(res.products));
@@ -48,8 +47,18 @@ function Home(props) {
 
 
     if (!products.length) {
-        return <div className='loading-img'><img src={loading} /></div>
-        
+
+        helix.register()
+
+        // Default values shown
+
+        // return <div className='loading-img'><img src={loading} /></div>
+        return <l-helix
+            size="100"
+            speed="2.5"
+            color="#4D61FF"
+        ></l-helix>
+
     }
 
 
@@ -59,7 +68,7 @@ function Home(props) {
 
         <br />
         <div className='allcat'>
-            
+
             <p>
                 <img className='imges' src={img1} />
                 <br />
@@ -159,11 +168,12 @@ function Home(props) {
 
         <div className='api-cards-main'>
             {products.map((item) => {
-                return <div className='api-cards' onClick={()=> {navigate(`/detail/${item.id}`)}}>
-                    <Card item = {item}/>
+                return <div className='api-cards' onClick={() => { navigate(`/detail/${item.id}`) }}>
+                    <Card item={item} />
                 </div>
 
             })}
+
 
 
 

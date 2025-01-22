@@ -13,7 +13,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../config/firebase'
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 import ProfilePictures from "../views/uploadPFPs";
 import CartPage from "../components/cartPage";
 
@@ -22,21 +22,22 @@ const router = createBrowserRouter([
         path: "/",
         element: <div><Layout /></div>,
         children: [
+            // {
+            //     path: "/",
+            //     element: <div><Login /></div>,
+            // },
+            // {
+            //     path: "/signup",
+            //     element: <div><SignUp /></div>,
+            // },
+
             {
                 path: "/",
-                element: <div><Login /></div>,
-            },
-            {
-                path: "/signup",
-                element: <div><SignUp /></div>,
+                element: <div><Home /></div>,
             },
             {
                 path: "/adpage",
                 element: <div><Ad /></div>,
-            },
-            {
-                path: "/home",
-                element: <div><Home /></div>,
             },
             {
                 path: "/detail/:adId",
@@ -50,43 +51,47 @@ const router = createBrowserRouter([
                 path: "/addtocart",
                 element: <div><CartPage /></div>,
             },
-        ]
-    },
-    // {
-    //     path: "/header",
-    //     element: <div><Header /></div>,
-    // },
+        ],
+
+    }, {
+        path: "/signup",
+        element: <div><SignUp /></div>,
+    }, {
+        path: "/login",
+        element: <div><Login /></div>,
+    }
 
 
 ]);
+
 function Layout() {
     const navigate = useNavigate()
-    const [ user , setUser ] = useState() 
+    const [user, setUser] = useState()
     const { pathname } = window.location
     useEffect(() => {
 
         onAuthStateChanged(auth, (user) => {
-            // console.log(user , 'user hai bhai ye');
+            console.log(user, 'user hai bhai ye');
             setUser(user)
 
-        } );
+        });
 
     }, [])
     useEffect(() => {
         if (user) {
-            if (pathname === '/' || pathname === 'signup') {
-                navigate('/home');
-                
+            if (pathname === '/login' || pathname === '/signup') {
+                navigate('/');
+
             }
 
         } else {
             if (pathname === '/adpage') {
-                navigate('/');
-                
+                navigate('/login');
+
             }
         }
 
-    }, [pathname , user])
+    }, [pathname, user])
 
     return <div>
         <Header />

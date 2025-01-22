@@ -2,25 +2,33 @@ import { useState, useEffect } from 'react';
 import './index.css'
 import { useParams} from 'react-router-dom';
 import loading from '../../Assets/loading.gif'
-import Header from '../../components/header';
-import Footer from '../../components/footer';
 import profile from '../../Assets/profile.jpg'
 
 import { getSingleProduct } from '../../config/firebase';
-import { useDispatch , useSelector } from 'react-redux';
-import { addToCart , removeFromCart } from '../../store/adcart';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/adcart';
 import CartPage from '../../components/cartPage';
+import { auth } from '../../config/firebase';
+import { onAuthStateChanged } from "firebase/auth";
+
+
 
 function Detail(props) {
     const [singleProduct, setSingleProduct] = useState([])
+    const [user , setUser] = useState()
     const { adId } = useParams()
     const dispatch = useDispatch()
-    const [ productID , setProductID] = useState()
+    // const [ productID , setProductID] = useState()
     
     const { price, title, brand, description, imageURL } = singleProduct
 
 
     useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+                    // console.log(user, 'user hai bhai ye');
+                    setUser(user)
+        
+        });
         getAProduct()
 
 
@@ -56,12 +64,13 @@ function Detail(props) {
                             <img className='api-img' src={imageURL} />
 
                         </div>
-                        <div className='profile-div'>
-                            <span className='img-span'><img className='profile-img' src={profile} /> Usaid Ahmed</span>
+                        
+                        {user && <div className='profile-div'>
+                            <span className='img-span'><img className='profile-img' src={user?.photoURL == null ? profile : user.photoURL} /> {user.displayName}</span>
                             <div className='chat-btn'onClick={() => dispatch(addToCart(singleProduct))}>Add To Cart</div>
                             <div className="cart-page"><CartPage api = {singleProduct} /></div>
 
-                        </div>
+                        </div>}
 
                     </div>
 

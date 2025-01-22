@@ -16,7 +16,7 @@ function SignUp() {
         try {
 
             await signup({ fullName, age, email, password })
-            navigate('/home')
+            navigate('/')
         } catch (error) {
             console.log(error);
         }
@@ -39,7 +39,7 @@ function SignUp() {
         <input type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
         <div>
             <button className='log-btn' onClick={register}>Sign Up</button>
-            <p className='title'>Already have an account? <span className='signup-link' onClick={() => navigate('/')}>Login</span></p>
+            <p className='title'>Already have an account? <span className='signup-link' onClick={() => navigate('/login')}>Login</span></p>
         </div>
 
     </div>

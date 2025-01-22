@@ -18,7 +18,7 @@ function Ad() {
 
             await userAd({ title, brand, price, images, description })
 
-            navigate('/home')
+            navigate('/')
         } catch (error) {
             console.log(error);
         }

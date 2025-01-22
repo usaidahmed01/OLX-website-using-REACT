@@ -13,7 +13,7 @@ function ProfilePictures() {
 
 
         await uploadpfp({ pfpImg , fullName })
-        navigate('/home')
+        navigate('/')
         
 
     }
@@ -44,10 +44,6 @@ function ProfilePictures() {
                     <input className='input' type='text' placeholder='Your Fullname'  onChange={(e) => setFullName(e.target.value)} />
                     <br />
                     <br />
-
-                    <label>Date of Birth</label>
-                    <br />
-                    <input className='input' type='date' />
                 </div>
                 <div>
                     <button className='log-btn' onClick={pfpUpdated}>Save Changes</button>

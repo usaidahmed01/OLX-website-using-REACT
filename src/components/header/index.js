@@ -1,5 +1,4 @@
 import logo from '../../Assets/logo.png'
-import logo2 from '../../Assets/logo-2.png'
 import './index.css'
 import car from '../../Assets/car-front.png'
 import building from '../../Assets/building-2.png'
@@ -7,8 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, logout } from '../../config/firebase'
 import { useEffect, useState } from 'react'
-import { getpfps } from '../../config/firebase'
+// import { getpfps } from '../../config/firebase'
 import cart from '../../Assets/shopping-cart.png'
+
+import { helix } from 'ldrs'
+
 
 
 
@@ -16,8 +18,11 @@ import cart from '../../Assets/shopping-cart.png'
 function Header() {
     const navigate = useNavigate()
     const [user, setUser] = useState()
-    const [pfpImg, setPfpImg] = useState([])
-    const [tru, setTru] = useState(false)
+    // const [pfpImg, setPfpImg] = useState([])
+    // const [currentPfp , setCurrentPfp] = useState()
+
+
+    // const [tru, setTru] = useState(false)
     // const { pfpURl , id , fullName } = pfpImg
 
 
@@ -27,37 +32,40 @@ function Header() {
             if (user) {
                 const uid = user.uid;
                 setUser(user)
+
             } else {
                 setUser(null)
             }
         });
 
     }, [])
-    useEffect(() => {
-        getpicture()
+    // useEffect(() => {
+    //     getpicture()
 
-    }, [pfpImg])
+
+    // }, [])
 
     // console.log(pfpImg, "pictures");
 
-    const getpicture = async () => {
-        const pfpicture = await getpfps()
-        setPfpImg(pfpicture)
+    // const getpicture = async () => {
+    //     const pfpicture = await getpfps()
+    //     setPfpImg(pfpicture)
+    //     // setCurrentPfp(pfpImg[pfpImg.length - 1])
 
-    }
+    // }
 
 
     const signOut = async () => {
         await logout()
         setUser(null)
-        setPfpImg(null)
-        setTru(true)
+        // setCurrentPfp(null)
+        // setTru(true)
 
 
 
-        navigate('/home')
+        navigate('/')
     }
-console.log(pfpImg , 'img');
+    // console.log(pfpImg , 'img');
 
 
     return <div className='main-div'>
@@ -70,7 +78,7 @@ console.log(pfpImg , 'img');
 
             </ul>
             <ul className='nav-2'>
-                <li><img className='olx-logo-2' src={logo} onClick={() => navigate('/home')} /></li>
+                <li><img className='olx-logo-2' src={logo} onClick={() => navigate('/')} /></li>
                 <li><select className='loc-bar'>
                     <option selected >Pakistan</option>
                     <option>India</option>
@@ -79,22 +87,23 @@ console.log(pfpImg , 'img');
                 </select></li>
                 <li><input className='search-bar' placeholder='Find Cars, Mobile Phones and more...' type='search' /></li>
                 <li>{user ? <p>
-                    <span className='email'>{user.email}</span>
-                    {!pfpImg.length ?  <span class="upload-btn-wrapper">
+                    <span className='email'>{user.displayName}</span>
+
+                    {user.pfpURl === null ? <span class="upload-btn-wrapper">
                         <button class="upload-img-btn" onClick={() => navigate('/editProfile')} >Upload Profile</button>
 
                     </span>
                         :
-                        <span >
-                            <img onClick={() => navigate('/editProfile')} className='profile-img' src={pfpImg?.map( item => item.pfpURl)} alt = 'img-not-found' />
+                        <span className='profile-img-span'>
+                            <img onClick={() => navigate('/editProfile')} className='profile-img' src={user.photoURL}/>
                         </span>}
 
 
 
                     <button className='login-btn' onClick={signOut}>Logout</button>
+                    <span><img src={cart} className='cart' onClick={() => navigate('/addtocart')} /></span>
                 </p>
-                    : <button className='login-btn' onClick={() => navigate('/')}>Login</button>}</li>
-                <li> <span><img src={cart} className='cart' onClick={() => navigate('/addtocart')} /></span></li>
+                    : <button className='login-btn' onClick={() => navigate('/login')}>Login</button>}</li>
 
 
                 <li><button className='sell-btn' onClick={() => navigate('/adpage')}>SELL</button>

@@ -12,7 +12,7 @@ function Login() {
         try {
 
             await login({ email, password });
-            navigate('/home')
+            navigate('/')
         } catch (error) {
             alert (error)
         }
@@ -23,7 +23,7 @@ function Login() {
 
     return <div className='flex'>
         <div className="mainDiv">
-            <img src={logo} className='olx-logo' />
+            <img src={logo} className='olx-logo' onClick={() => navigate('/')} />
             <h5>Welcome to OLX</h5>
             <p className='title'>The trusted community of buyers and sellers.</p>
             <input type="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />

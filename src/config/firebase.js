@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  , updateProfile } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -23,14 +23,15 @@ const storage = getStorage(app);
 async function signup(userInfo) {
   const { email, password, fullName, age } = userInfo;
   try {
-    await createUserWithEmailAndPassword(auth, email, password)
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(userCredential.user , {displayName : fullName}) // Update the profile
     const docRef = await addDoc(collection(db, "users"), {
       fullName,
       age,
       email,
     });
 
-    alert('Registered Successfully')
+    // alert('Registered Successfully')
 
 
 
@@ -62,6 +63,7 @@ async function login(userInfo) {
   const { email, password } = userInfo;
   await signInWithEmailAndPassword(auth, email, password)
 
+
  
 
 
@@ -78,11 +80,11 @@ async function userAd(ad) {
 
   try {
 
-    const storageRef = ref(storage, `adDetails/${images.name}`);
+    const storageRef = ref(storage, `adDetails/${images.name}`);                  // here we save the images references in firbase storage
+    await uploadBytes(storageRef, images);                                        // here we upload the images in fiebase so we can get the url 
 
-    await uploadBytes(storageRef, images);
     const imgURL = await getDownloadURL(storageRef);
-
+    
     await addDoc(collection(db, "adDetails"), {
       title,
       brand,
@@ -125,7 +127,7 @@ async function getADs() {
 
 
 async function uploadpfp(pfpimage) {
-  const { pfpImg } = pfpimage
+  const { pfpImg  , fullName} = pfpimage
 
   try {
 
@@ -133,10 +135,13 @@ async function uploadpfp(pfpimage) {
     await uploadBytes(storageRef, pfpImg)
     const pfpURl = await getDownloadURL(storageRef)
 
+    await updateProfile( auth.currentUser , {displayName : fullName , photoURL : pfpURl})
+
     const docRef = await addDoc(collection(db, "userpfps"), {
       pfpURl,
-
     });
+
+
   } catch (e) {
     alert(e.message)
   }
@@ -144,26 +149,26 @@ async function uploadpfp(pfpimage) {
 
 }
 
-async function getpfps() {
+// async function getpfps() {
 
-  const querySnapshot = await getDocs(collection(db, "userpfps"));
-  const pfpIMG = []
+//   const querySnapshot = await getDocs(collection(db, "userpfps"));
+//   const pfpIMG = []
   
 
-  querySnapshot.forEach((doc) => {
+//   querySnapshot.forEach((doc) => {
 
 
-    const pfp = doc.data()
-    pfp.id = doc.id
+//     const pfp = doc.data()
+//     pfp.id = doc.id
 
-    pfpIMG.push(pfp)
-
-
-  });
-  return pfpIMG
+//     pfpIMG.push(pfp)
 
 
-}
+//   });
+//   return pfpIMG
+
+
+// }
 
 async function getSingleProduct(detailID) {
 
@@ -172,13 +177,11 @@ async function getSingleProduct(detailID) {
   const productData = docSnap.data()
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+    console.log("Document data:", productData);
   } else {
     console.log("No such document!");
   }
   return productData
-
-
 
 
 
@@ -192,6 +195,6 @@ export {
   getADs,
   logout,
   uploadpfp,
-  getpfps,
+  // getpfps,
   getSingleProduct
 }
